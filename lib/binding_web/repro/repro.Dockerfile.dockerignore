@@ -1,0 +1,23 @@
+target
+.git
+
+node_modules
+**/node_modules
+
+# force a clean rebuild
+**/dist
+lib/binding_web/lib/*.wasm
+lib/binding_web/lib/*.wasm.map
+lib/binding_web/*.wasm
+lib/binding_web/*.wasm.map
+
+#unnecessary for reproducing issue
+test/fixtures/grammars
+fuzz-results
+test/fuzz/out
+
+.vscode
+.idea
+.direnv
+.cache
+
