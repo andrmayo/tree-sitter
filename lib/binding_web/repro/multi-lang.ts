@@ -1,48 +1,48 @@
-import { Parser, Language, Query } from "../src";
-import { createRequire } from "node:module";
-import path from "node:path";
+import { Parser, Language, Query } from '../src';
+import { createRequire } from 'node:module';
+import path from 'node:path';
 
 const require = createRequire(import.meta.url);
 const wasmDir = path.join(
-  path.dirname(require.resolve("tree-sitter-wasms/package.json")),
-  "out",
+  path.dirname(require.resolve('tree-sitter-wasms/package.json')),
+  'out',
 );
 
 // Swift, C++, and C# per the issue
 const languages = [
-  "tree-sitter-typescript.wasm",
-  "tree-sitter-cpp.wasm",
-  "tree-sitter-c_sharp.wasm",
-  "tree-sitter-ruby.wasm",
-  "tree-sitter-swift.wasm",
-  "tree-sitter-kotlin.wasm",
+  'tree-sitter-typescript.wasm',
+  'tree-sitter-cpp.wasm',
+  'tree-sitter-c_sharp.wasm',
+  'tree-sitter-ruby.wasm',
+  'tree-sitter-swift.wasm',
+  'tree-sitter-kotlin.wasm',
 ];
 
 // For each language, a source snippet and a query
 const cases: Record<string, { source: string; query: string }> = {
-  "tree-sitter-typescript.wasm": {
-    source: "function foo(x: number) { return x + 1; }\n",
-    query: "(function_declaration) @func",
+  'tree-sitter-typescript.wasm': {
+    source: 'function foo(x: number) { return x + 1; }\n',
+    query: '(function_declaration) @func',
   },
-  "tree-sitter-cpp.wasm": {
-    source: "int foo(int x) { return x + 1; }\n",
-    query: "(function_definition) @func",
+  'tree-sitter-cpp.wasm': {
+    source: 'int foo(int x) { return x + 1; }\n',
+    query: '(function_definition) @func',
   },
-  "tree-sitter-c_sharp.wasm": {
-    source: "class C { int Foo(int x) { return x + 1; } }\n",
-    query: "(method_declaration) @func",
+  'tree-sitter-c_sharp.wasm': {
+    source: 'class C { int Foo(int x) { return x + 1; } }\n',
+    query: '(method_declaration) @func',
   },
-  "tree-sitter-ruby.wasm": {
-    source: "def foo(x)\n  x + 1\nend\n",
-    query: "(method) @func",
+  'tree-sitter-ruby.wasm': {
+    source: 'def foo(x)\n  x + 1\nend\n',
+    query: '(method) @func',
   },
-  "tree-sitter-swift.wasm": {
-    source: "func foo(x: Int) -> Int { return x + 1 }\n",
-    query: "(function_declaration) @func",
+  'tree-sitter-swift.wasm': {
+    source: 'func foo(x: Int) -> Int { return x + 1 }\n',
+    query: '(function_declaration) @func',
   },
-  "tree-sitter-kotlin.wasm": {
-    source: "fun foo(x: Int): Int { return x + 1 }\n",
-    query: "(function_declaration) @func",
+  'tree-sitter-kotlin.wasm': {
+    source: 'fun foo(x: Int): Int { return x + 1 }\n',
+    query: '(function_declaration) @func',
   },
 };
 
