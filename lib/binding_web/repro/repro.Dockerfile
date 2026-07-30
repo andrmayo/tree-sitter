@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends libclang-dev &&
 # it depends only on external npm packages, so it caches independently of
 # any source changes.
 WORKDIR /usr/src/swift-wasm
+# this tree-sitter-cli is used solely to compile the swift grammar from its source
 RUN npm init -y && npm install --legacy-peer-deps --save-dev tree-sitter-cli@0.25.9 tree-sitter-swift
 RUN npx tree-sitter build --wasm node_modules/tree-sitter-swift -o tree-sitter-swift.wasm
 
@@ -43,9 +44,7 @@ RUN npm install && npm run build
 FROM node:22-slim
 
 # Grammars sourced from each language's own package rather than
-# tree-sitter-wasms, whose prebuilt files still use the legacy "dylink"
-# custom section, incompatible with this build's "dylink.0"-only loader
-# (confirmed against both 0.1.11 and 0.1.13). Placed before the builder
+# tree-sitter-wasms. Placed before the builder
 # COPY below since it depends only on external npm packages, so it caches
 # independently of the built package.
 WORKDIR /usr/src/grammars
